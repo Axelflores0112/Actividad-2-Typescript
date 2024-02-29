@@ -10,6 +10,7 @@ router.post('/', async (req, res) => {
   const newCategory = await service.create(category)
 
   res.status(201).json(newCategory)
+  console.log('Category created:', newCategory)
 })
 
 router.get('/', async (req, res, next) => {
@@ -38,5 +39,6 @@ router.get('/', async (req, res, next) => {
     next(error)
   }
 })
+
 
 export default router

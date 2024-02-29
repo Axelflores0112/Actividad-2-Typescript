@@ -6,14 +6,14 @@ import boom  from '@hapi/boom'
 
 //
 class AnimeService{
-    async create (anime:Anime){
+    async create (anime:Anime){//jala
         const newAnime= await Animes.create(anime).catch((error) => {
             console.log('Could not save score', error)
         })
         return newAnime
     }
 
-    async findAll(){
+    async findAll(){//jala
         const animes = await Animes.find().catch((error) => {
             console.log('Error while connecting to the DB', error)
         })
@@ -24,33 +24,35 @@ class AnimeService{
         return animes
     }
 
-    async findByName(name: string){
-        const animeName = await Animes.findById(name).catch((error) =>{
+    async findByName(name: string){//jala
+        const animeName = await Animes.findOne({name}).catch((error) =>{
             console.log('Error while connecting to the DB', error)
         })
         if(!animeName){
             throw boom.notFound('Anime not found')
         }
+        return animeName
     }
-    async findByScore( score: number){
-        const animeScore = await Animes.findById(score).catch((error) =>{
+    async findByScore( score: number){///jala
+        const animeScore = await Animes.findOne({score}).catch((error) =>{
             console.log('Error while connecting to the DB', error)
         })
         if(!animeScore){
             throw boom.notFound('There are not animes with this rating')
         }
+        return animeScore
     }
-    async deleteByName(name: string){
+    async deleteByName(name: string){//jala
         const anime = await Animes.findOneAndDelete({name}).catch((error)=>{
             console.log('Error while connecting to the DB', error)
         })
         if(!anime){
             throw boom.notFound('there are no animes with that name')
         }
+        return "anime deleted "+name
     }
-
-    async updateByName(name:string, anime:Anime){
-        const animeUpdate = await Animes.findOneAndUpdate({name},anime).catch((error) => {
+    async updateByName(name:string, anime:Anime){//jala
+        const animeUpdate = await Animes.findOneAndUpdate({name},anime,{new:true}).catch((error) => {
             console.log('Error while connecting to the DB', error)
         })
         if(!animeUpdate){/*<-- Comprobamos si existe el anime con ese nombre*/

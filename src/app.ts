@@ -11,6 +11,7 @@ import { config } from './config/config'
 const { mongoUri, port } = config
 
 const app = express()
+app.use(express.json())
 
 const connectDB = () => {
   mongoose.connect(mongoUri)
