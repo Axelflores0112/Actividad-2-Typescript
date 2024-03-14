@@ -24,4 +24,8 @@ const LocalStrategy = new Strategy(options, async (email, password, next) => {
   }
 })
 
+<<<<<<< HEAD
 export default LocalStrategy
+=======
+export default LocalStrategy
+>>>>>>> c6e2e7a16722b455ec0d95673cd004704965c8f6

@@ -21,4 +21,6 @@ const extractFromJwt = (authorization: string) => {
   return verifyJwt(token)
 }
 
+
 export { verifyJwt, extractFromJwt }
+

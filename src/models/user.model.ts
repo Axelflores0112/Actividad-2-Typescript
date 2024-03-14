@@ -2,7 +2,9 @@ import { Schema, model } from 'mongoose'
 import { User, UserMethods, UserModel } from '../types/user.type'
 import { EMAIL_REGEX, PHONE_NUMBER_REGEX } from '../utils/constants'
 
+
 export const USER_REFERENCE = 'User'
+
 
 const Users = new Schema<User, UserModel, UserMethods>({
   name: {
@@ -52,3 +54,4 @@ Users.methods.toClient = function () {
 }
 
 export default model(USER_REFERENCE, Users)
+
