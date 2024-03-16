@@ -37,7 +37,17 @@ class UserService {
 
     return user
   }
-}
+  async deleteAllusers(){
+    const user = await Users.deleteMany({}).catch((error) => {
+      console.log('Could not retrieve user info', error)
+    })
 
+    if (!user) {
+      throw boom.notFound('Users not found')
+    }
+
+    return "all users deleted"
+  }
+}
 export default UserService
 

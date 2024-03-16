@@ -1,3 +1,18 @@
 PORT=3010
 MONGO_URI='mongodb://localhost:27017/proyecto-bd-web-2'
 JWT_SECRET='YHF%s8DDhZb6L$'
+
+
+//animes
+{
+  "name":"steins;gate",
+  "description":"joya",
+  "genere":"time",
+  "score":10
+}
+//user
+{
+  "name":"admin",
+  "email":"admin@gmail.com",
+  "password":"admin"
+}

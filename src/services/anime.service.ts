@@ -22,11 +22,11 @@ class AnimeService {
 
         })
         const existingAnime = await this.findbyId((newAnime as any)._id)
-        return existingAnime.populate([{ path: 'user', strictPopulate: false }])
+        return existingAnime.populate([{ path: 'user',select: 'name email', strictPopulate: false }])//Retornamos el anime con el usuario que lo creo
     }
     async findAll() {//jala
         const animes = await Animes.find()
-            .populate([{ path: 'user', strictPopulate: false }])
+            .populate([{ path: 'user',select: 'name email', strictPopulate: false }])
             .catch((error) => {
                 console.log('Error while connecting to the DB', error)
             })

@@ -29,6 +29,14 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.delete('/', async (req, res, next) => {
+  try {
+    const users = await service.deleteAllusers()
+    res.status(200).json({ users })
+  } catch (error) {
+    next(error)
+  }
+})
 
 export default router
 
