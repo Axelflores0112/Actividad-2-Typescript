@@ -37,6 +37,16 @@ class UserService {
 
     return user
   }
+  async findAll(){
+    const user = await Users.find()
+    .catch((error) => {
+      console.log('Error while connecting to the DB', error)
+    })
+    if (!user) {
+      throw boom.notFound('Users not found')
+    }
+    return user
+  }
   async deleteAllusers(){
     const user = await Users.deleteMany({}).catch((error) => {
       console.log('Could not retrieve user info', error)

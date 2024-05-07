@@ -19,11 +19,15 @@ router.post('/', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   try {
-    const { email } = req.query
-    const user = await service.findByEmail(email as string)
-    console.log({ user })
-
-    res.status(200).json({ user })
+    if(req.query.email){
+      const { email } = req.query
+      const user = await service.findByEmail(email as string)
+      console.log({ user })
+      res.status(200).json({ user })
+    }else{
+      const users = await service.findAll()
+      res.status(200).json({ users })
+    }
   } catch (error) {
     next(error)
   }
