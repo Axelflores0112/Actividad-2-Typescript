@@ -26,7 +26,7 @@ router.post('/',
         res.status(201).json(newAnime)
     })
 
-router.get('/getTarea2',//Get para tarea2
+router.get('/getTarea2',//Endpoint sin proteccion
     async (req: UserRequestType, res, next) => {//jala
         try {
             if (req.query.name) {
@@ -87,7 +87,7 @@ router.patch('/',
         }
     })
 
-    router.get('/',//Endpoint sin proteccion
+    router.get('/',//Endpoint con proteccion
     passport.authenticate('jwt', { session: false }),
     async (req: JwtRequestType, res, next) => {//jala
         try {
