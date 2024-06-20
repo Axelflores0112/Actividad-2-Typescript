@@ -14,16 +14,22 @@ class AnimeService {
          return newAnime
      }*/
     async create(anime: Anime, userId: ObjectId) {//Creacion de animes
+        const duplicateAnime = await Animes.findOne({ name: anime.name });
+        if (duplicateAnime) {
+           console.log('El anime ya existe en la base de datos.');
+           return null;//regresamos null si anime ya existe
+        }
         const newAnime = await Animes.create({
             ...anime,
             user: userId
         }).catch((error) => {
             console.log('Could not save anime', error)
-
         })
+        if(!newAnime){return null}//si da null se detiene la creacion
         const existingAnime = await this.findbyId((newAnime as any)._id)
         return existingAnime.populate([{ path: 'user',select: 'name email', strictPopulate: false }])//Retornamos el anime con el usuario que lo creo
     }
+
     async findAll() {//Traer todos los animes de todos los usuarios
         const animes = await Animes.find()
             .populate([{ path: 'user',select: 'name email', strictPopulate: false }])

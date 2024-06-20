@@ -87,7 +87,7 @@ router.patch('/',
         }
     })
 
-    router.get('/',//Endpoint con proteccion
+router.get('/',//Endpoint con proteccion
     passport.authenticate('jwt', { session: false }),
     async (req: JwtRequestType, res, next) => {//jala
         try {
@@ -107,13 +107,13 @@ router.patch('/',
                 const { genere } = req.query
                 const animes = await service.findByGenere(genere as string)
                 res.status(200).json(animes);
-            } else if(req.query.userId) {
+            } else if (req.query.userId) {
                 const { userId } = req.query
                 const animesUser = await service.findByUserID(userId as string)
                 res.status(200).json(animesUser);
-            }else{
+            } else {
                 const animes = await service.findAll();
-                res.status(200).json(animes);   
+                res.status(200).json(animes);
             }
         } catch (error) {
             console.error("Error:", error);
