@@ -4,6 +4,7 @@ import AnimeService from '../services/anime.service'
 import passport from 'passport'
 import { JwtRequestType, UserRequestType } from '../types/user.type'
 import { ObjectId } from 'mongoose'
+import { checkRole } from "../middlewares/rol.handler"
 
 const router = express.Router()
 const service = new AnimeService()
@@ -11,6 +12,7 @@ const service = new AnimeService()
 
 router.post('/',
     passport.authenticate('jwt', { session: false }),
+    checkRole(['admin', 'creador']),
     async (req: JwtRequestType, res) => {//jala
         //Body se usa para todos los elementos (datos del request)
         const {
@@ -59,6 +61,7 @@ router.get('/getTarea2',//Endpoint sin proteccion
 
 router.delete('/',
     passport.authenticate('jwt', { session: false }),
+    checkRole(['admin']),
     async (req: JwtRequestType, res, next) => {//jala
         try {
             if (req.query.name) {
@@ -77,6 +80,7 @@ router.delete('/',
 
 router.patch('/',
     passport.authenticate('jwt', { session: false }),
+    checkRole(['admin','creador']),
     async (req: JwtRequestType, res, next) => {//jala
         try {
             const { name } = req.query

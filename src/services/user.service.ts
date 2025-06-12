@@ -58,6 +58,17 @@ class UserService {
 
     return "all users deleted"
   }
+  async findById(id: string) {
+    const user = await Users.findById(id).catch((error) => {
+      console.log('Could not retrieve user info', error)
+    })
+
+    if (!user) {
+      throw boom.notFound('User not found')
+    }
+
+    return user
+  }
 }
 export default UserService
 

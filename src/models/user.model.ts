@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
 import { User, UserMethods, UserModel } from '../types/user.type'
-import { EMAIL_REGEX, PHONE_NUMBER_REGEX } from '../utils/constants'
+import { EMAIL_REGEX, PHONE_NUMBER_REGEX,PASSWORD_REGEX } from '../utils/constants'
 
 
 export const USER_REFERENCE = 'User'
@@ -22,7 +22,8 @@ const Users = new Schema<User, UserModel, UserMethods>({
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    match: [PASSWORD_REGEX, 'Please enter valid pasword']
   },
   address: {
     type: String,
@@ -32,6 +33,12 @@ const Users = new Schema<User, UserModel, UserMethods>({
     type: String,
     trim: true,
     match: [PHONE_NUMBER_REGEX, 'Please enter a valid phone number']
+  },
+  role: {
+    type: String,
+    enum: ['admin', 'creador', 'cliente'],
+    default: 'cliente',
+    required: true
   },
   createdAt: {
     type: Date,
@@ -49,7 +56,8 @@ Users.methods.toClient = function () {
     name: this.name,
     email: this.email,
     address: this.address,
-    phoneNumber: this.phoneNumber
+    phoneNumber: this.phoneNumber,
+    role: this.role
   }
 }
 

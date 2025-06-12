@@ -27,7 +27,8 @@ export type ToClientUser = {
   name: string
   email: string
   address: string
-  phoneNumber: string
+  phoneNumber: string,
+   role: 'admin' | 'creador' | 'cliente' 
 }
 
 export type UserMethods = {
